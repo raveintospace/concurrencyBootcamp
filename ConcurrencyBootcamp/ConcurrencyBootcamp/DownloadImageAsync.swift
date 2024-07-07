@@ -11,17 +11,22 @@ class DownloadImageAsyncImageLoader {
     
     let url = URL(string: "https://picsum.photos/200")!
     
-    func downloadWithEscaping(completionHandler: @escaping (_ image: UIImage?, _ error: Error?) -> Void ) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                let data = data,
-                let image = UIImage(data: data),
+    func handleResponse(data: Data?, response: URLResponse?) -> UIImage? {
+        guard
+            let data = data,
+            let image = UIImage(data: data),
             let response = response as? HTTPURLResponse,
             response.statusCode >= 200 && response.statusCode < 300 else {
-                completionHandler(nil, error)
-                return
-            }
-            completionHandler(image, nil)
+            return nil
+        }
+        return image
+    }
+    
+    func downloadWithEscaping(completionHandler: @escaping (_ image: UIImage?, _ error: Error?) -> Void ) {
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let self = self else { return }
+            let image = self.handleResponse(data: data, response: response)
+            completionHandler(image, error)
         }
         .resume()
     }
