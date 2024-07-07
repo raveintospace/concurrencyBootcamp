@@ -38,11 +38,20 @@ class DownloadImageAsyncImageLoader {
             .mapError({ $0 })   // maps the URLError from handleResponse to Error
             .eraseToAnyPublisher()
     }
+    
+    func downloadWithAsync() async throws -> UIImage? {
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url, delegate: nil)
+            return handleResponse(data: data, response: response)
+        } catch {
+            throw error
+        }
+    }
 }
 
 class DownloadImageAsyncViewModel: ObservableObject {
     
-    @Published var image: UIImage? = nil
+    @Published var expectedImage: UIImage? = nil
     
     let loader = DownloadImageAsyncImageLoader()
     
@@ -52,7 +61,7 @@ class DownloadImageAsyncViewModel: ObservableObject {
         loader.downloadWithEscaping { [weak self] returnedImage, error in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.image = returnedImage
+                self.expectedImage = returnedImage
             }
         }
     }
@@ -64,9 +73,16 @@ class DownloadImageAsyncViewModel: ObservableObject {
                 
             } receiveValue: { [weak self] returnedImage in
                 guard let self = self else { return }
-                self.image = returnedImage
+                expectedImage = returnedImage
             }
             .store(in: &cancellables)
+    }
+    
+    func fetchWithAsync() async {
+        let returnedImage = try? await loader.downloadWithAsync()
+        await MainActor.run {
+            self.expectedImage = returnedImage
+        }
     }
 }
 
@@ -76,7 +92,7 @@ struct DownloadImageAsync: View {
     
     var body: some View {
         ZStack {
-            if let image = viewModel.image {
+            if let image = viewModel.expectedImage {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
@@ -85,7 +101,10 @@ struct DownloadImageAsync: View {
         }
         .onAppear {
             // viewModel.fetchImageCompletionHandler()
-            viewModel.fetchImageCombine()
+            // viewModel.fetchImageCombine()
+            Task {
+                await viewModel.fetchWithAsync()
+            }
         }
     }
 }
