@@ -1,7 +1,7 @@
 //
 //  DoTryCatchThrows.swift
 //  ConcurrencyBootcamp
-//
+//  L1
 //  Created by Uri on 6/7/24.
 //
 
@@ -20,7 +20,7 @@ class DoTryCatchThrowsDataManager {
         }
     }
     
-    // returns only a Result, that will be of type String or Error
+    // returns only a Result, that will be of type String(success) or Error
     func getTitle2() -> Result<String, Error> {
         if isActive {
             return .success("New Title")
