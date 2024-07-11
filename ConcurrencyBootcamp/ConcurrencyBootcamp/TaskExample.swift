@@ -17,7 +17,7 @@ class TaskViewModel: ObservableObject {
     func fetchImage() async {
         try? await Task.sleep(nanoseconds: 2_000_000_000)
         
-        for x in dummyArray {
+        for _ in dummyArray {
             // work
             
             try? Task.checkCancellation()
