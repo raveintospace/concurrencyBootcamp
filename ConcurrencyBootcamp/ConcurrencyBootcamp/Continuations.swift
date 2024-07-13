@@ -9,12 +9,30 @@ import SwiftUI
 
 final class ContinuationsNetworkManager {
     
+    // returns Data, previous network manager code returns UIImage
     func getData(url: URL) async throws -> Data {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             return data
         } catch  {
             throw error
+        }
+    }
+    
+    // completion handler (escaping closure) in URLSession, code that does not take async is converted to take it
+    // we have to always resume, only once
+    func getData2(url: URL) async throws -> Data {
+        return try await withCheckedThrowingContinuation { continuation in
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let data = data {
+                    continuation.resume(returning: data)
+                } else if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(throwing: URLError(.badURL))
+                }
+            }
+            .resume()
         }
     }
 }
@@ -28,6 +46,8 @@ final class ContinuationsViewModel: ObservableObject {
         guard let url = URL(string: "https://picsum.photos/300") else { return }
         
         do {
+            // let data = try await networkManager.getData2(url: url)
+            
             let data = try await networkManager.getData(url: url)
             if let image = UIImage(data: data) {
                 await MainActor.run {
@@ -37,6 +57,10 @@ final class ContinuationsViewModel: ObservableObject {
         } catch {
             debugPrint(error)
         }
+    }
+    
+    func getHeartImage() async {
+        
     }
 }
 
