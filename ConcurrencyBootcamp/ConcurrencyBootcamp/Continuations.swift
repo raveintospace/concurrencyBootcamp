@@ -9,21 +9,21 @@ import SwiftUI
 
 final class ContinuationsNetworkManager {
     
-    // returns Data, previous network manager code returns UIImage
+    // returns Data, previous network managers code returns UIImage
     func getData(url: URL) async throws -> Data {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             return data
-        } catch  {
+        } catch {
             throw error
         }
     }
     
     // completion handler (escaping closure) in URLSession, code that does not take async is converted to take it
-    // we have to always resume, only once
+    // we always have to resume, only once
     func getData2(url: URL) async throws -> Data {
         return try await withCheckedThrowingContinuation { continuation in
-            URLSession.shared.dataTask(with: url) { data, response, error in
+            URLSession.shared.dataTask(with: url) { data, _, error in
                 if let data = data {
                     continuation.resume(returning: data)
                 } else if let error = error {
@@ -36,7 +36,7 @@ final class ContinuationsNetworkManager {
         }
     }
     
-    func getHeartImageFromDatabase(completionHandler: @escaping (_ image: UIImage) -> Void) {
+    func getHeartImageWithCompletionHandler(completionHandler: @escaping (_ image: UIImage) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             completionHandler(UIImage(systemName: "heart.fill")!)
         }
@@ -44,7 +44,7 @@ final class ContinuationsNetworkManager {
     
     func getHeartImageFromDatabase() async -> UIImage {
         return await withCheckedContinuation { continuation in
-            getHeartImageFromDatabase { image in
+            getHeartImageWithCompletionHandler { image in
                 continuation.resume(returning: image)
             }
         }
@@ -60,7 +60,7 @@ final class ContinuationsViewModel: ObservableObject {
         guard let url = URL(string: "https://picsum.photos/300") else { return }
         
         do {
-            // let data = try await networkManager.getData2(url: url)
+            //let data = try await networkManager.getData2(url: url)
             
             let data = try await networkManager.getData(url: url)
             if let image = UIImage(data: data) {
@@ -73,16 +73,16 @@ final class ContinuationsViewModel: ObservableObject {
         }
     }
     
-    // using getHeartImageFromDatabase(completionHandler...)
-    /* func getHeartImage() {
-        networkManager.getHeartImageFromDatabase { [weak self] image in
+    // using getHeartImageWithCompletionHandler
+    func getHeartImage() {
+        networkManager.getHeartImageWithCompletionHandler { [weak self] image in
             guard let self = self else { return }
             self.image = image
         }
-    }*/
+    }
     
-    // using getHeartImageFromDatabase() async
-    func getHeartImage() async {
+    // using getHeartImageFromDatabase()
+    func getHeartImage2() async {
         self.image = await networkManager.getHeartImageFromDatabase()
     }
 }
@@ -102,7 +102,9 @@ struct Continuations: View {
         }
         .task {
             // await viewModel.getImage()
-            await viewModel.getHeartImage()
+            // viewModel.getHeartImage()
+            
+            await viewModel.getHeartImage2()
         }
     }
 }
