@@ -19,6 +19,34 @@ final class TaskGroupDataManager {
         return [image1, image2, image3, image4]
     }
     
+    func fetchImagesWithTaskGroup() async throws -> [UIImage] {
+        
+        // return of the function
+        return try await withThrowingTaskGroup(of: UIImage.self) { group in
+            var returnedImages: [UIImage] = []
+            
+            group.addTask {
+                try await self.fetchImage(urlString: "https://picsum.photos/300")
+            }
+            group.addTask {
+                try await self.fetchImage(urlString: "https://picsum.photos/300")
+            }
+            group.addTask {
+                try await self.fetchImage(urlString: "https://picsum.photos/300")
+            }
+            group.addTask {
+                try await self.fetchImage(urlString: "https://picsum.photos/300")
+            }
+            
+            for try await taskResult in group {
+                returnedImages.append(taskResult)
+            }
+            
+            // return of the closure
+            return returnedImages
+        }
+    }
+    
     private func fetchImage(urlString: String) async throws -> UIImage {
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)
@@ -43,9 +71,16 @@ final class TaskGroupViewModel: ObservableObject {
     let manager = TaskGroupDataManager()
     
     func getImages() async {
+        if let images = try? await manager.fetchImagesWithTaskGroup() {
+            self.images.append(contentsOf: images)
+        }
+        
+        // fetch with async let
+        /*
         if let images = try? await manager.fetchImageWithyAsyncLet() {
             self.images.append(contentsOf: images)
         }
+         */
     }
 }
 
