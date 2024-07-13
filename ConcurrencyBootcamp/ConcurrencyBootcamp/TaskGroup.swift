@@ -31,17 +31,20 @@ final class TaskGroupDataManager {
         ]
         
         // return of the function
-        return try await withThrowingTaskGroup(of: UIImage.self) { group in
+        return try await withThrowingTaskGroup(of: UIImage?.self) { group in
             var returnedImages: [UIImage] = []
+            returnedImages.reserveCapacity(urlStrings.count) // improves performance
             
             for urlString in urlStrings {
                 group.addTask {
-                    try await self.fetchImage(urlString: urlString)
+                    try? await self.fetchImage(urlString: urlString)
                 }
             }
             
-            for try await taskResult in group {
-                returnedImages.append(taskResult)
+            for try await imageFromtaskResult in group {
+                if let image = imageFromtaskResult {
+                    returnedImages.append(image)
+                }
             }
             
             // return of the closure
