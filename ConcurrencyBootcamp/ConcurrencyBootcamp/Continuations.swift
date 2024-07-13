@@ -35,6 +35,20 @@ final class ContinuationsNetworkManager {
             .resume()
         }
     }
+    
+    func getHeartImageFromDatabase(completionHandler: @escaping (_ image: UIImage) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            completionHandler(UIImage(systemName: "heart.fill")!)
+        }
+    }
+    
+    func getHeartImageFromDatabase() async -> UIImage {
+        return await withCheckedContinuation { continuation in
+            getHeartImageFromDatabase { image in
+                continuation.resume(returning: image)
+            }
+        }
+    }
 }
 
 final class ContinuationsViewModel: ObservableObject {
@@ -59,8 +73,17 @@ final class ContinuationsViewModel: ObservableObject {
         }
     }
     
+    // using getHeartImageFromDatabase(completionHandler...)
+    /* func getHeartImage() {
+        networkManager.getHeartImageFromDatabase { [weak self] image in
+            guard let self = self else { return }
+            self.image = image
+        }
+    }*/
+    
+    // using getHeartImageFromDatabase() async
     func getHeartImage() async {
-        
+        self.image = await networkManager.getHeartImageFromDatabase()
     }
 }
 
@@ -78,7 +101,8 @@ struct Continuations: View {
             }
         }
         .task {
-            await viewModel.getImage()
+            // await viewModel.getImage()
+            await viewModel.getHeartImage()
         }
     }
 }
