@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class DownloadImageAsyncImageLoader {
+final class DownloadImageAsyncImageLoader {
     
     let url = URL(string: "https://picsum.photos/200")!
     
@@ -49,7 +49,7 @@ class DownloadImageAsyncImageLoader {
     }
 }
 
-class DownloadImageAsyncViewModel: ObservableObject {
+final class DownloadImageAsyncViewModel: ObservableObject {
     
     @Published var expectedImage: UIImage? = nil
     

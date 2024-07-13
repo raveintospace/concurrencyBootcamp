@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class DoTryCatchThrowsDataManager {
+final class DoTryCatchThrowsDataManager {
     
     let isActive: Bool = true
     
@@ -48,7 +48,7 @@ class DoTryCatchThrowsDataManager {
     }
 }
 
-class DoTryCatchThrowsViewModel: ObservableObject {
+final class DoTryCatchThrowsViewModel: ObservableObject {
     
     @Published var text: String = "Starting text"
     let manager = DoTryCatchThrowsDataManager()

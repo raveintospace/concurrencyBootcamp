@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class TaskViewModel: ObservableObject {
+final class TaskViewModel: ObservableObject {
     
     @Published var image: UIImage? = nil
     @Published var image2: UIImage? = nil
