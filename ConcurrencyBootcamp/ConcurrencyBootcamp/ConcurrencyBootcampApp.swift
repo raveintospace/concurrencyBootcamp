@@ -11,7 +11,7 @@ import SwiftUI
 struct ConcurrencyBootcampApp: App {
     var body: some Scene {
         WindowGroup {
-            AsyncAwait()
+            StructClassActor()
         }
     }
 }
