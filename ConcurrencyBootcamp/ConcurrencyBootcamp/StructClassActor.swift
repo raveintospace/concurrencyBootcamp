@@ -1,7 +1,7 @@
 //
 //  StructClassActor.swift
 //  ConcurrencyBootcamp
-//  https://youtu.be/-JLenSTKEcA?si=rEKfmKmex4gX1xnp
+//  https://youtu.be/-JLenSTKEcA?si=rEKfmKmex4gX1xnp, min 50 heap vs stack
 //  Created by Uri on 14/7/24.
 //
 
@@ -20,12 +20,14 @@ struct StructClassActor: View {
     StructClassActor()
 }
 
-// Value type
+// MARK: - Struct Vs Class examples
+
+// Struct: Value type, a copy of data
 struct MyStruct {
     var title: String
 }
 
-// Reference type
+// Class: Reference type, a reference to original
 class MyClass {
     var title: String
     
@@ -43,6 +45,8 @@ extension StructClassActor {
 //        classTest1()
         
         structTest2()
+        printDivider()
+        classTest2()
     }
     
     private func printDivider() {
@@ -83,6 +87,8 @@ extension StructClassActor {
         print("Object B: ", objectB.title)
     }
 }
+
+// MARK: - Structs in depth
 
 // Immutable struct
 struct CustomStruct {
@@ -140,5 +146,38 @@ extension StructClassActor {
         print("Struct4: ", struct4.title)
         struct4.updateTitle(newTitle: "Title 2")
         print("Struct4: ", struct4.title)
+    }
+}
+
+
+// MARK: - Class in depth
+
+class MyClass2 {
+    var title: String
+    
+    init(title: String) {
+        self.title = title
+    }
+    
+    func updateTitle(newTitle: String) {
+        title = newTitle
+    }
+}
+
+extension StructClassActor {
+    
+    private func classTest2() {
+        print("classTest2")
+        
+        print("Update property value of all objects of class MyClass")
+        let class2 = MyClass2(title: "Title 1")
+        print("Class 2: ", class2.title)
+        class2.title = "Title 2"
+        print("Class 2: ", class2.title)
+        
+        let class3 = MyClass2(title: "Title 1")
+        print("Class 3: ", class3.title)
+        class3.updateTitle(newTitle: "Title 2")
+        print("Class 3: ", class3.title)
     }
 }
