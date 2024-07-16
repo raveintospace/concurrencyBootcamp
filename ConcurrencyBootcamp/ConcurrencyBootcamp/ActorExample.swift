@@ -15,6 +15,7 @@
 
 import SwiftUI
 
+// MARK: - Multithreading with class
 class MyDataManager {
     
     static let instance = MyDataManager()
@@ -29,21 +30,6 @@ class MyDataManager {
             debugPrint(Thread())
             completionHandler(self.data.randomElement())
         }
-    }
-}
-
-actor MyActorDataManager {
-    
-    static let instance = MyActorDataManager()
-    private init() {}
-    
-    var data: [String] = []
-    
-    func getRandomData() -> String? {
-        self.data.append(UUID().uuidString)
-        debugPrint(Thread())
-        return data.randomElement()
-        
     }
 }
 
@@ -126,6 +112,23 @@ struct ActorHomeView: View {
                 }
             }
         }
+    }
+}
+
+// MARK: - Multithreading with Actor
+
+actor MyActorDataManager {
+    
+    static let instance = MyActorDataManager()
+    private init() {}
+    
+    var data: [String] = []
+    
+    func getRandomData() -> String? {
+        self.data.append(UUID().uuidString)
+        debugPrint(Thread())
+        return data.randomElement()
+        
     }
 }
 
