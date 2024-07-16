@@ -243,7 +243,6 @@ extension StructClassActor {
     }
 }
 
-
 // MARK: - Class in depth + Actor
 
 class MyClass2 {
