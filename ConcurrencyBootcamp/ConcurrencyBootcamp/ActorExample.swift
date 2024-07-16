@@ -7,6 +7,8 @@
 
 /*
  1. What is the problem that actors solve? When multiple threads try to access the same piece of memory in the heap at the same time
+ 
+ 2. How to fix the problem before Actors? "private let queue" in Data Manager
  */
 import SwiftUI
 
@@ -16,12 +18,14 @@ class MyDataManager {
     private init() {}
     
     var data: [String] = []
+    private let queue = DispatchQueue(label: "com.MyAppName.MyDataManager")
     
-    func getRandomData() -> String? {
-        
-        self.data.append(UUID().uuidString)
-        debugPrint(Thread())
-        return data.randomElement()
+    func getRandomData(completionHandler: @escaping (_ title: String?) -> Void) {
+        queue.async {
+            self.data.append(UUID().uuidString)
+            debugPrint(Thread())
+            completionHandler(self.data.randomElement())
+        }
     }
 }
 
@@ -41,9 +45,11 @@ struct HomeView: View {
         }
         .onReceive(timer) { _ in
             DispatchQueue.global(qos: .background).async {
-                if let data = manager.getRandomData() {
-                    DispatchQueue.main.async {
-                        text = data
+                manager.getRandomData { title in
+                    if let data = title {
+                        DispatchQueue.main.async {
+                            text = data
+                        }
                     }
                 }
             }
@@ -67,9 +73,11 @@ struct BrowseView: View {
         }
         .onReceive(timer) { _ in
             DispatchQueue.global(qos: .default).async {
-                if let daaa = manager.getRandomData() {
-                    DispatchQueue.main.async {
-                        text = data
+                manager.getRandomData { title in
+                    if let daata = title {
+                        DispatchQueue.main.async {
+                            text = data
+                        }
                     }
                 }
             }
