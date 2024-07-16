@@ -177,12 +177,13 @@ struct ActorBrowseView: View {
 struct ActorExample: View {
     var body: some View {
         TabView {
-            ActorHomeView()
+            Text("Fato")
+            //ActorHomeView()
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
-            
-            ActorBrowseView()
+            Text("Fati")
+            //ActorBrowseView()
                 .tabItem {
                     Label("Browse", systemImage: "magnifyingglass")
                 }
