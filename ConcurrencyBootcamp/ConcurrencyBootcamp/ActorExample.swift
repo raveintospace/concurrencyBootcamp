@@ -128,8 +128,13 @@ actor MyActorDataManager {
         self.data.append(UUID().uuidString)
         debugPrint(Thread())
         return data.randomElement()
-        
     }
+    
+    nonisolated func getSavedDataWithoutWaiting() -> String {
+        return "New Data"
+    }
+    
+    nonisolated let myRandomText: String = "fasfsadfas"
 }
 
 struct ActorBrowseView: View {
@@ -146,9 +151,20 @@ struct ActorBrowseView: View {
             Text(text)
                 .font(.headline)
         }
+        .onAppear {
+            // non-isolated func & property
+            let newString = manager.getSavedDataWithoutWaiting()
+            let newRandomText = manager.myRandomText
+            
+            // actor-isolated property
+            Task {
+                await manager.data
+            }
+        }
         .onReceive(timer) { _ in
             Task {
-                if let daata = await manager.getRandomData() {
+                // await to get into the actor
+                if let data = await manager.getRandomData() {
                     await MainActor.run {
                         text = data
                     }
