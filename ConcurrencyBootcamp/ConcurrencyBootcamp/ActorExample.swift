@@ -8,20 +8,22 @@
 /*
  1. What is the problem that actors solve? When multiple threads try to access the same piece of memory in the heap at the same time
  
- 2. How to fix the problem before Actors / Make classes thread safe? "private let queue" in Data Manager
+ 2. How to fix the problem before Actors? Make classes thread safe with "private let queue"
  
  3. Actors make classes thread safe by themselves
  */
 
 import SwiftUI
 
-// MARK: - Multithreading with class
+// MARK: - Safely multithreading with class
 final class MyDataManager {
     
     static let instance = MyDataManager()
     private init() {}
     
     var data: [String] = []
+    
+    // makes the class thread safe
     private let queue = DispatchQueue(label: "com.MyAppName.MyDataManager")
     
     func getRandomData(completionHandler: @escaping (_ title: String?) -> Void) {
@@ -89,6 +91,28 @@ struct BrowseView: View {
     }
 }
 
+// MARK: - Multithreading with Actor
+
+actor MyActorDataManager {
+    
+    static let instance = MyActorDataManager()
+    private init() {}
+    
+    var data: [String] = []
+    
+    func getRandomData() -> String? {
+        self.data.append(UUID().uuidString)
+        debugPrint(Thread())
+        return data.randomElement()
+    }
+    
+    nonisolated func getSavedDataWithoutWaiting() -> String {
+        return "New Data"
+    }
+    
+    nonisolated let myRandomText: String = "fasfsadfas"
+}
+
 struct ActorHomeView: View {
     
     let manager = MyActorDataManager.instance
@@ -113,28 +137,6 @@ struct ActorHomeView: View {
             }
         }
     }
-}
-
-// MARK: - Multithreading with Actor
-
-actor MyActorDataManager {
-    
-    static let instance = MyActorDataManager()
-    private init() {}
-    
-    var data: [String] = []
-    
-    func getRandomData() -> String? {
-        self.data.append(UUID().uuidString)
-        debugPrint(Thread())
-        return data.randomElement()
-    }
-    
-    nonisolated func getSavedDataWithoutWaiting() -> String {
-        return "New Data"
-    }
-    
-    nonisolated let myRandomText: String = "fasfsadfas"
 }
 
 struct ActorBrowseView: View {

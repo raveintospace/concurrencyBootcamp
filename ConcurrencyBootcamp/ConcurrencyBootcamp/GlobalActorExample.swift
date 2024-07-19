@@ -10,6 +10,7 @@ import SwiftUI
 @globalActor struct MyFirstGlobalActor {
     
     static var shared = MyNewDataManager()
+    private init() {}
 }
 
 actor MyNewDataManager {
