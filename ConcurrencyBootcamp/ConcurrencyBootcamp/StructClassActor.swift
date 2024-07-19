@@ -64,7 +64,7 @@ actor StructClassActorDataManager {
 }
 
 // only initialized once
-class StructClassActorViewModel: ObservableObject {
+final class StructClassActorViewModel: ObservableObject {
     
     @Published var title: String = ""
     
@@ -119,7 +119,7 @@ struct MyStruct {
 }
 
 // Class: Reference type, a reference to original
-class MyClass {
+final class MyClass {
     var title: String
     
     init(title: String) {
@@ -245,7 +245,7 @@ extension StructClassActor {
 
 // MARK: - Class in depth + Actor
 
-class MyClass2 {
+final class MyClass2 {
     var title: String
     
     init(title: String) {

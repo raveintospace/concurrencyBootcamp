@@ -16,7 +16,7 @@
 import SwiftUI
 
 // MARK: - Multithreading with class
-class MyDataManager {
+final class MyDataManager {
     
     static let instance = MyDataManager()
     private init() {}
