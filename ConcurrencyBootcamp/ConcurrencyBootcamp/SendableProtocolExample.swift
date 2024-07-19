@@ -14,16 +14,18 @@ actor CurrentUserManager {
 }
 
 // Sendable so we can send thread-safely an object of MyUserInfo to our Actor
+// Conforming a struct to sendable increases its performance
 struct MyUserInfo: Sendable {
     let name: String
 }
 
+// approach not recommended, better use a struct if possible
 final class MyClassUserInfo: @unchecked Sendable {
     let name: String
     private var age: Int
     
     // makes the class thread safe
-    let queue = DispatchQueue(label: "com.MyAppName.MyClassUserInfo")
+    private let queue = DispatchQueue(label: "com.MyAppName.MyClassUserInfo")
     
     init(name: String, age: Int) {
         self.name = name

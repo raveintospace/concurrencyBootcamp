@@ -13,6 +13,7 @@ Value types:
  - Faster
  - Thread safe
  - Creates a new copy of data
+ - Cup of coffee empty / cup of coffe full
  
  Reference types:
  - Class, Functions, Actor
@@ -20,6 +21,7 @@ Value types:
  - Slower but synchronized
  - Not thread safe by default
  - Creates a new reference/pointer to the original instance
+ - Two cups of coffee full
  
  -----------------------------
  
