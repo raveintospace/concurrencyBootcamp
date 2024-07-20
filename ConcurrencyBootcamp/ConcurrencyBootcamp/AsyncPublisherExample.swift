@@ -3,7 +3,7 @@
 //  ConcurrencyBootcamp
 //  https://youtu.be/ePPm2ftSVqw?si=N6VSjCc5B0-GPbdM
 //  Created by Uri on 20/7/24.
-//
+//  Subscribe to @Published properties without Combine
 
 import SwiftUI
 import Combine

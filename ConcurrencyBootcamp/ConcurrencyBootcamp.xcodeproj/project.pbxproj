@@ -21,6 +21,7 @@
 		34B83B312C3C4FF3004466E1 /* TaskExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B83B302C3C4FF3004466E1 /* TaskExample.swift */; };
 		34B95AAA2C3A95D9000FE5CB /* DownloadImageAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B95AA92C3A95D9000FE5CB /* DownloadImageAsync.swift */; };
 		34C249912C4BF64F00FBC68D /* AsyncPublisherExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C249902C4BF64F00FBC68D /* AsyncPublisherExample.swift */; };
+		34C249932C4C010500FBC68D /* StrongWeakSelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C249922C4C010500FBC68D /* StrongWeakSelf.swift */; };
 		34FA2A8E2C4AAEAD00EEDA3F /* GlobalActorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FA2A8D2C4AAEAD00EEDA3F /* GlobalActorExample.swift */; };
 		34FA2A902C4AB9C900EEDA3F /* SendableProtocolExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FA2A8F2C4AB9C900EEDA3F /* SendableProtocolExample.swift */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,7 @@
 		34B83B302C3C4FF3004466E1 /* TaskExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskExample.swift; sourceTree = "<group>"; };
 		34B95AA92C3A95D9000FE5CB /* DownloadImageAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageAsync.swift; sourceTree = "<group>"; };
 		34C249902C4BF64F00FBC68D /* AsyncPublisherExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPublisherExample.swift; sourceTree = "<group>"; };
+		34C249922C4C010500FBC68D /* StrongWeakSelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongWeakSelf.swift; sourceTree = "<group>"; };
 		34FA2A8D2C4AAEAD00EEDA3F /* GlobalActorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalActorExample.swift; sourceTree = "<group>"; };
 		34FA2A8F2C4AB9C900EEDA3F /* SendableProtocolExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendableProtocolExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,6 +91,7 @@
 				34FA2A8D2C4AAEAD00EEDA3F /* GlobalActorExample.swift */,
 				34FA2A8F2C4AB9C900EEDA3F /* SendableProtocolExample.swift */,
 				34C249902C4BF64F00FBC68D /* AsyncPublisherExample.swift */,
+				34C249922C4C010500FBC68D /* StrongWeakSelf.swift */,
 				34187F412C3956BC005D21E4 /* Assets.xcassets */,
 				34187F432C3956BC005D21E4 /* Preview Content */,
 			);
@@ -178,6 +181,7 @@
 				345666B92C43D98A00CEBD38 /* StructClassActor.swift in Sources */,
 				34187F402C3956BB005D21E4 /* ContentView.swift in Sources */,
 				343997F02C428AB500AAAA9F /* TaskGroup.swift in Sources */,
+				34C249932C4C010500FBC68D /* StrongWeakSelf.swift in Sources */,
 				348C9B792C46D51400D88573 /* ActorExample.swift in Sources */,
 				34FA2A8E2C4AAEAD00EEDA3F /* GlobalActorExample.swift in Sources */,
 				342F69A72C40346E00324BAC /* AsyncLet.swift in Sources */,

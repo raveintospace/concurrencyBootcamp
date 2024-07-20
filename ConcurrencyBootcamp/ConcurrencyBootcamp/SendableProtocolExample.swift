@@ -3,7 +3,7 @@
 //  ConcurrencyBootcamp
 //  https://youtu.be/wSmTbtOwgbE?si=ilgMl692WMEZlb7T
 //  Created by Uri on 19/7/24.
-//
+//  Protocol to send objects to Actors
 
 import SwiftUI
 
