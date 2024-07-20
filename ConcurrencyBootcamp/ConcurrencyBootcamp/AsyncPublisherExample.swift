@@ -55,7 +55,7 @@ final class AsyncPublisherExampleViewModel: ObservableObject {
         }
     }
     
-    func start() async {
+    func startData() async {
         await manager.addData()
     }
 }
@@ -74,7 +74,7 @@ struct AsyncPublisherExample: View {
             }
         }
         .task {
-            await viewModel.start()
+            await viewModel.startData()
         }
     }
 }
