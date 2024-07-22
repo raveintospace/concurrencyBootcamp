@@ -11,11 +11,12 @@
 		34187F402C3956BB005D21E4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34187F3F2C3956BB005D21E4 /* ContentView.swift */; };
 		34187F422C3956BC005D21E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34187F412C3956BC005D21E4 /* Assets.xcassets */; };
 		34187F452C3956BC005D21E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34187F442C3956BC005D21E4 /* Preview Assets.xcassets */; };
-		34187F4C2C3958DA005D21E4 /* DoTryCatchThrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34187F4B2C3958DA005D21E4 /* DoTryCatchThrows.swift */; };
+		34187F4C2C3958DA005D21E4 /* DoTryCatchThrowsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34187F4B2C3958DA005D21E4 /* DoTryCatchThrowsExample.swift */; };
 		342F69A72C40346E00324BAC /* AsyncLet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342F69A62C40346E00324BAC /* AsyncLet.swift */; };
 		343997F02C428AB500AAAA9F /* TaskGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343997EF2C428AB500AAAA9F /* TaskGroup.swift */; };
 		345666B92C43D98A00CEBD38 /* StructClassActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345666B82C43D98A00CEBD38 /* StructClassActor.swift */; };
 		3460387E2C4EB0B500E3FA77 /* RefreshableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3460387D2C4EB0B500E3FA77 /* RefreshableExample.swift */; };
+		346038802C4EB78B00E3FA77 /* SearchableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3460387F2C4EB78B00E3FA77 /* SearchableExample.swift */; };
 		3476CE322C42CA4E00A6E30E /* Continuations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3476CE312C42CA4E00A6E30E /* Continuations.swift */; };
 		348C9B792C46D51400D88573 /* ActorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348C9B782C46D51400D88573 /* ActorExample.swift */; };
 		34B83B2F2C3C47C8004466E1 /* AsyncAwait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B83B2E2C3C47C8004466E1 /* AsyncAwait.swift */; };
@@ -34,11 +35,12 @@
 		34187F3F2C3956BB005D21E4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		34187F412C3956BC005D21E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34187F442C3956BC005D21E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		34187F4B2C3958DA005D21E4 /* DoTryCatchThrows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoTryCatchThrows.swift; sourceTree = "<group>"; };
+		34187F4B2C3958DA005D21E4 /* DoTryCatchThrowsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoTryCatchThrowsExample.swift; sourceTree = "<group>"; };
 		342F69A62C40346E00324BAC /* AsyncLet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncLet.swift; sourceTree = "<group>"; };
 		343997EF2C428AB500AAAA9F /* TaskGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGroup.swift; sourceTree = "<group>"; };
 		345666B82C43D98A00CEBD38 /* StructClassActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructClassActor.swift; sourceTree = "<group>"; };
 		3460387D2C4EB0B500E3FA77 /* RefreshableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableExample.swift; sourceTree = "<group>"; };
+		3460387F2C4EB78B00E3FA77 /* SearchableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableExample.swift; sourceTree = "<group>"; };
 		3476CE312C42CA4E00A6E30E /* Continuations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Continuations.swift; sourceTree = "<group>"; };
 		348C9B782C46D51400D88573 /* ActorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorExample.swift; sourceTree = "<group>"; };
 		34B83B2E2C3C47C8004466E1 /* AsyncAwait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAwait.swift; sourceTree = "<group>"; };
@@ -83,7 +85,7 @@
 			children = (
 				34187F3D2C3956BB005D21E4 /* ConcurrencyBootcampApp.swift */,
 				34187F3F2C3956BB005D21E4 /* ContentView.swift */,
-				34187F4B2C3958DA005D21E4 /* DoTryCatchThrows.swift */,
+				34187F4B2C3958DA005D21E4 /* DoTryCatchThrowsExample.swift */,
 				34B95AA92C3A95D9000FE5CB /* DownloadImageAsync.swift */,
 				34B83B2E2C3C47C8004466E1 /* AsyncAwait.swift */,
 				34B83B302C3C4FF3004466E1 /* TaskExample.swift */,
@@ -98,6 +100,7 @@
 				34C249922C4C010500FBC68D /* StrongWeakSelf.swift */,
 				34C249942C4C247A00FBC68D /* MVVMExample.swift */,
 				3460387D2C4EB0B500E3FA77 /* RefreshableExample.swift */,
+				3460387F2C4EB78B00E3FA77 /* SearchableExample.swift */,
 				34187F412C3956BC005D21E4 /* Assets.xcassets */,
 				34187F432C3956BC005D21E4 /* Preview Content */,
 			);
@@ -186,6 +189,7 @@
 				3460387E2C4EB0B500E3FA77 /* RefreshableExample.swift in Sources */,
 				34B95AAA2C3A95D9000FE5CB /* DownloadImageAsync.swift in Sources */,
 				345666B92C43D98A00CEBD38 /* StructClassActor.swift in Sources */,
+				346038802C4EB78B00E3FA77 /* SearchableExample.swift in Sources */,
 				34187F402C3956BB005D21E4 /* ContentView.swift in Sources */,
 				343997F02C428AB500AAAA9F /* TaskGroup.swift in Sources */,
 				34C249932C4C010500FBC68D /* StrongWeakSelf.swift in Sources */,
@@ -195,7 +199,7 @@
 				34B83B2F2C3C47C8004466E1 /* AsyncAwait.swift in Sources */,
 				34187F3E2C3956BB005D21E4 /* ConcurrencyBootcampApp.swift in Sources */,
 				34B83B312C3C4FF3004466E1 /* TaskExample.swift in Sources */,
-				34187F4C2C3958DA005D21E4 /* DoTryCatchThrows.swift in Sources */,
+				34187F4C2C3958DA005D21E4 /* DoTryCatchThrowsExample.swift in Sources */,
 				3476CE322C42CA4E00A6E30E /* Continuations.swift in Sources */,
 				34C249952C4C247A00FBC68D /* MVVMExample.swift in Sources */,
 				34FA2A902C4AB9C900EEDA3F /* SendableProtocolExample.swift in Sources */,

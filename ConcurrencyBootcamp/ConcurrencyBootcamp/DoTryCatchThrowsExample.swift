@@ -97,7 +97,7 @@ final class DoTryCatchThrowsViewModel: ObservableObject {
     }
 }
 
-struct DoTryCatchThrows: View {
+struct DoTryCatchThrowsExample: View {
     
     @StateObject private var viewModel = DoTryCatchThrowsViewModel()
     
@@ -112,5 +112,5 @@ struct DoTryCatchThrows: View {
 }
 
 #Preview {
-    DoTryCatchThrows()
+    DoTryCatchThrowsExample()
 }

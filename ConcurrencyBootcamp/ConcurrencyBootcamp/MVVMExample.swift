@@ -80,6 +80,7 @@ struct MVVMExample: View {
                 viewModel.ButtonActionFromActor()
             }
         }
+        // no "await" because async (Task) happens in VM
         .onDisappear {
             viewModel.cancelTasks()
         }
