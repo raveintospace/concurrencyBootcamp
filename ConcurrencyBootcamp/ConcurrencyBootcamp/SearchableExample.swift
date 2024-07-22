@@ -1,7 +1,7 @@
 //
 //  SearchableExample.swift
 //  ConcurrencyBootcamp
-//
+//  https://youtu.be/f2nxenwKCVM?si=xxYqeWhvbjJDw-cY - min 14, search logic
 //  Created by Uri on 22/7/24.
 //
 
@@ -13,7 +13,7 @@ struct Restaurant: Identifiable, Hashable {
     let cuisine: CuisineOption
 }
 
-enum CuisineOption {
+enum CuisineOption: String {
     case american, italian, japanese, worldwide
 }
 
@@ -32,8 +32,11 @@ final class RestaurantManager {
 @MainActor
 final class SearchableExampleViewModel: ObservableObject {
     
-    @Published private(set) var allRestaurants: [Restaurant] = []
     let manager = RestaurantManager()
+    
+    @Published private(set) var allRestaurants: [Restaurant] = []
+    
+    @Published var searchText: String = ""
     
     func loadRestaurants() async {
         do {
@@ -51,12 +54,14 @@ struct SearchableExample: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                ForEach(viewModel.allRestaurants, id: \.self) { restaurant in
-                    Text(restaurant.name)
-                        .font(.headline)
+                ForEach(viewModel.allRestaurants) { restaurant in
+                    restaurantRow(restaurant: restaurant)
                 }
             }
+            .padding()
         }
+        .searchable(text: $viewModel.searchText, prompt: "Search restaurant")
+        .navigationTitle("Restaurants")
         .task {
             await viewModel.loadRestaurants()
         }
@@ -64,5 +69,22 @@ struct SearchableExample: View {
 }
 
 #Preview {
-    SearchableExample()
+    NavigationStack {
+        SearchableExample()
+    }
+}
+
+extension SearchableExample {
+    
+    private func restaurantRow(restaurant: Restaurant) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(restaurant.name)
+                .font(.headline)
+            Text(restaurant.cuisine.rawValue.capitalized)
+                .font(.caption)
+        }
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.black.opacity(0.05))
+    }
 }
