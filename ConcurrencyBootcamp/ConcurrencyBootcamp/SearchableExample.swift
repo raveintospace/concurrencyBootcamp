@@ -92,6 +92,10 @@ struct SearchableExample: View {
                 }
             }
             .padding()
+            
+            // Uncomment to check isSearching
+            //Text("ViewModel is searching: \(viewModel.isSearching.description)")
+            //SearchChildView()
         }
         .searchable(text: $viewModel.searchText, prompt: "Search restaurant")
         .navigationTitle("Restaurants")
@@ -119,5 +123,15 @@ extension SearchableExample {
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.black.opacity(0.05))
+    }
+}
+
+// MARK: - Read searchable from environment instead of using a computed property in VM
+struct SearchChildView: View {
+    @Environment(\.isSearching) private var isSearching
+    
+    
+    var body: some View {
+        Text("Child view is searching: \(isSearching.description)")
     }
 }
