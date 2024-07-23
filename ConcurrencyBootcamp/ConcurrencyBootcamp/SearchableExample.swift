@@ -1,11 +1,12 @@
 //
 //  SearchableExample.swift
 //  ConcurrencyBootcamp
-//  https://youtu.be/f2nxenwKCVM?si=xxYqeWhvbjJDw-cY - min 14, search logic
+//  https://youtu.be/f2nxenwKCVM?si=xxYqeWhvbjJDw-cY
 //  Created by Uri on 22/7/24.
 //
 
 import SwiftUI
+import Combine
 
 struct Restaurant: Identifiable, Hashable {
     let id: String
@@ -35,8 +36,40 @@ final class SearchableExampleViewModel: ObservableObject {
     let manager = RestaurantManager()
     
     @Published private(set) var allRestaurants: [Restaurant] = []
-    
+    @Published private(set) var filteredRestaurants: [Restaurant] = []
     @Published var searchText: String = ""
+    private var cancellables = Set<AnyCancellable>()
+    
+    var isSearching: Bool {
+        !searchText.isEmpty
+    }
+    
+    init() {
+        addSubscribers()
+    }
+    
+    private func addSubscribers() {
+        $searchText
+            .debounce(for: 0.3, scheduler: DispatchQueue.main)
+            .sink { [weak self] searchText in
+                guard let self = self else { return }
+                self.filterRestaurants(searchText: searchText)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func filterRestaurants(searchText: String) {
+        guard !searchText.isEmpty else {
+            filteredRestaurants = []
+            return
+        }
+        let search = searchText.lowercased()
+        filteredRestaurants = allRestaurants.filter({ restaurant in
+            let titleContainsSearch = restaurant.name.lowercased().contains(search)
+            let cuisineContainsSearch = restaurant.cuisine.rawValue.lowercased().contains(search)
+            return titleContainsSearch || cuisineContainsSearch
+        })
+    }
     
     func loadRestaurants() async {
         do {
@@ -54,7 +87,7 @@ struct SearchableExample: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                ForEach(viewModel.allRestaurants) { restaurant in
+                ForEach(viewModel.isSearching ? viewModel.filteredRestaurants : viewModel.allRestaurants) { restaurant in
                     restaurantRow(restaurant: restaurant)
                 }
             }
