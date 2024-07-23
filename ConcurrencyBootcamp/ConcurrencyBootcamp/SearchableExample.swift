@@ -159,7 +159,9 @@ struct SearchableExample: View {
         ScrollView {
             VStack(spacing: 20) {
                 ForEach(viewModel.isSearching ? viewModel.filteredRestaurants : viewModel.allRestaurants) { restaurant in
-                    restaurantRow(restaurant: restaurant)
+                    NavigationLink(value: restaurant) {
+                        restaurantRow(restaurant: restaurant)
+                    }
                 }
             }
             .padding()
@@ -186,6 +188,9 @@ struct SearchableExample: View {
         .task {
             await viewModel.loadRestaurants()
         }
+        .navigationDestination(for: Restaurant.self) { restaurant in
+            Text(restaurant.name.uppercased())
+        }
     }
 }
 
@@ -201,12 +206,14 @@ extension SearchableExample {
         VStack(alignment: .leading, spacing: 10) {
             Text(restaurant.name)
                 .font(.headline)
+                .foregroundStyle(Color.red)
             Text(restaurant.cuisine.rawValue.capitalized)
                 .font(.caption)
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.black.opacity(0.05))
+        .tint(.primary)
     }
 }
 
