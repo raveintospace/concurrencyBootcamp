@@ -149,6 +149,31 @@ final class SearchableExampleViewModel: ObservableObject {
         
         return suggestions
     }
+    
+    func getRestaurantSuggestions() -> [Restaurant] {
+        guard showSearchSuggestions else {
+            return []
+        }
+        
+        var suggestions: [Restaurant] = []
+        
+        let search = searchText.lowercased()
+        
+        if search.contains("am") {
+            suggestions.append(contentsOf: allRestaurants.filter({ $0.cuisine == .american }))
+        }
+        if search.contains("it") {
+            suggestions.append(contentsOf: allRestaurants.filter({ $0.cuisine == .italian }))
+        }
+        if search.contains("ja") {
+            suggestions.append(contentsOf: allRestaurants.filter({ $0.cuisine == .japanese }))
+        }
+        if search.contains("wo") {
+            suggestions.append(contentsOf: allRestaurants.filter({ $0.cuisine == .worldwide }))
+        }
+        
+        return suggestions
+    }
 }
 
 struct SearchableExample: View {
@@ -179,9 +204,16 @@ struct SearchableExample: View {
         })
         // more useful for recent searches (ie Instagram) rather than suggestions
         .searchSuggestions({
+            // completes the searchtext bar with the full text (ie "Italian")
             ForEach(viewModel.getSearchSuggestions(), id: \.self) { suggestion in
                 Text(suggestion)
                     .searchCompletion(suggestion)
+            }
+            // navigates to the restaurant if it is clicked from the suggestion list
+            ForEach(viewModel.getRestaurantSuggestions(), id: \.self) { suggestion in
+                NavigationLink(value: suggestion) {
+                    Text(suggestion.name)
+                }
             }
         })
         .navigationTitle("Restaurants")
