@@ -82,7 +82,7 @@ struct PhotosPickerExample: View {
     
     var body: some View {
         VStack(spacing: 40) {
-            Text("Hello, World!")
+            Text("Photos Picker Example")
             
             if let image = viewModel.selectedImage {
                 Image(uiImage: image)
