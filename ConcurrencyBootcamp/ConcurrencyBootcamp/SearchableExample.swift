@@ -196,6 +196,7 @@ struct SearchableExample: View {
             //SearchChildView()
         }
         .searchable(text: $viewModel.searchText, prompt: "Search restaurant")
+        .autocorrectionDisabled()
         .searchScopes($viewModel.searchScope, scopes: {
             ForEach(viewModel.allSearchScopes, id: \.self) { scope in
                 Text(scope.title)
