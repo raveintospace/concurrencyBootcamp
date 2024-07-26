@@ -3,6 +3,7 @@
 //  ConcurrencyBootcamp
 //  https://youtu.be/gi38bouUI2Q?si=xEBYlnAXrGOi5oNY
 //  Created by Uri on 26/7/24.
+
 //  Convert escaping closures to async streams, can return multiple times (stream of data)
 //  Continuations only return one value one time
 
@@ -82,7 +83,7 @@ final class AsyncStreamExampleViewModel: ObservableObject {
     
     // async in viewModel
     func onViewAppearAsyncStream() {
-        Task {
+        let task = Task {
             do {
                 for try await value in manager.getAsyncStreamWithOnFinish() {
                     currentNumber = value
@@ -91,6 +92,13 @@ final class AsyncStreamExampleViewModel: ObservableObject {
                 debugPrint(error)
             }
         }
+        
+        // cancels the task of viewModel, but not the task of the manager (getFakeData)
+        /*
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            task.cancel()
+        })
+        */
     }
     
     // async in View (Task)
