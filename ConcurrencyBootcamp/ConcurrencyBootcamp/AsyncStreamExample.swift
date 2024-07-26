@@ -22,7 +22,23 @@ final class AsyncStreamDataManager {
     }
     
     // Simulates a stream of data coming to our app and notifying when the stream finishes
-    
+    // The stream can optionally throw errors on its onFinish
+    func getFakeDataWithOnFinish(
+        newValue: @escaping (_ value: Int) -> Void,
+        onFinish: @escaping (_ error: Error?) -> Void
+    ) {
+        let items: [Int] = [1,2,3,4,5,6,7,8,9,10]
+
+        for item in items {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(item), execute: {
+                    newValue(item)
+                
+                if item == items.last {
+                    onFinish(nil)   // no errors
+                }
+            })
+        }
+    }
     
     // Simulates a stream of data coming to our app, using async code
     // We have to specify what type of data our asyncstream returns
@@ -32,6 +48,21 @@ final class AsyncStreamDataManager {
             self.getFakeData { value in
                 continuation.yield(value)
             }
+        }
+    }
+    
+    // AsyncStream that throws errors
+    func getAsyncStreamWithOnFinish() -> AsyncThrowingStream<Int, Error> {
+        AsyncThrowingStream { [weak self] continuation in
+            self?.getFakeDataWithOnFinish(newValue: { value in
+                continuation.yield(value)
+            }, onFinish: { error in
+                if let error {
+                    continuation.finish(throwing: error)
+                } else {
+                    continuation.finish()
+                }
+            })
         }
     }
 }
@@ -52,8 +83,12 @@ final class AsyncStreamExampleViewModel: ObservableObject {
     // async in viewModel
     func onViewAppearAsyncStream() {
         Task {
-            for await value in manager.getAsyncStream() {
-                currentNumber = value
+            do {
+                for try await value in manager.getAsyncStreamWithOnFinish() {
+                    currentNumber = value
+                }
+            } catch {
+                debugPrint(error)
             }
         }
     }
