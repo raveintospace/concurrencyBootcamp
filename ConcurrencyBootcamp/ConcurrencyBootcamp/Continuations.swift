@@ -3,7 +3,7 @@
 //  ConcurrencyBootcamp
 //  https://youtu.be/Tw_WLMIfEPQ?si=Lsf-moS8eHqNnrte
 //  Created by Uri on 13/7/24.
-//
+//  For completion handlers that execute only one time / Multiple times -> Async stream
 
 import SwiftUI
 
@@ -21,6 +21,7 @@ final class ContinuationsNetworkManager {
     
     // completion handler (escaping closure) in URLSession, code that does not take async is converted to take it
     // we always have to resume, only once
+    // Continuations return one value one time
     func getData2(url: URL) async throws -> Data {
         return try await withCheckedThrowingContinuation { continuation in
             URLSession.shared.dataTask(with: url) { data, _, error in
