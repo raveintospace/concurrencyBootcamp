@@ -21,10 +21,14 @@ final class AsyncStreamDataManager {
         }
     }
     
+    // Simulates a stream of data coming to our app and notifying when the stream finishes
+    
+    
     // Simulates a stream of data coming to our app, using async code
     // We have to specify what type of data our asyncstream returns
     func getAsyncStream() -> AsyncStream<Int> {
-        AsyncStream(Int.self) { continuation in
+        AsyncStream { [weak self] continuation in
+            guard let self = self else { return }
             self.getFakeData { value in
                 continuation.yield(value)
             }
