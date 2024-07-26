@@ -9,6 +9,14 @@ import SwiftUI
 import Observation
 
 // MARK: - Data Manager
+actor TitleDataManager {
+    
+    func getNewTitle() -> String {
+        "Title from actor"
+    }
+}
+
+// MARK: - ViewModels
 @MainActor
 final class ObservableMAViewModelClassic: ObservableObject {
     
@@ -20,35 +28,26 @@ final class ObservableMAViewModelClassic: ObservableObject {
     }
 }
 
-// MARK: - ViewModels
 @Observable
+@MainActor
 final class ObservableMAViewModel {
     
-    // does not observe manager because it does not publish to the view
+    // does not observe our manager because it does not update to the view
+    // If manager changed, it does not have anything that updates our view
     @ObservationIgnored let manager = TitleDataManager()
     
-    // update title on main thread
-    @MainActor var title: String = "Starting title observable"
+    var title: String = "Starting title observable"
     
-    // func needs to be on main actor to update title
-    @MainActor
     func updateTitle() async {
         await title = manager.getNewTitle()
     }
     
     // option 2
     func updateTitleWithTask() {
-        Task { @MainActor in
+        Task {
             title = await manager.getNewTitle()
             debugPrint("title updated with task")
         }
-    }
-}
-
-actor TitleDataManager {
-    
-    func getNewTitle() -> String {
-        "Title from actor"
     }
 }
 

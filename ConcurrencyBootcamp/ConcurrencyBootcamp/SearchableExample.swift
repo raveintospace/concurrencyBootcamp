@@ -18,6 +18,7 @@ enum CuisineOption: String {
     case american, italian, japanese, worldwide
 }
 
+// it also works using Actor instead of class
 final class RestaurantManager {
     
     func getAllRestaurants() async throws -> [Restaurant] {
